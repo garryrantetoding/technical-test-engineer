@@ -1,17 +1,22 @@
-"use client";
+'use client';
 
-import { submitGrades } from "../actions/action";
-import { SubmitButton } from "@/global/components/submit-button";
+import { submitGrades } from '../actions/action';
+import { SubmitButton } from '@/global/components/submit-button';
+import { FaUser } from 'react-icons/fa';
 
-export default function GradingPage() {
+export default function GradingForm() {
   const studentsCount = 10;
   const gradesPerStudent = 4;
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault(); 
+    event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    await submitGrades(formData);
-    alert("Grades submitted!");
+    const result = await submitGrades(formData);
+    if (result.success === true) {
+      alert('Grades submitted!');
+    } else {
+      alert('Failed to submit!');
+    }
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLFormElement>) => {
@@ -21,33 +26,35 @@ export default function GradingPage() {
   };
 
   return (
-    <main style={{ padding: '20px' }}>
-      <h1>Minimum Render Grading App</h1>
-      <form onSubmit={handleSubmit} onKeyDown={handleKeyDown}> 
-        {/* Create an array of 10 items to map over */}
-        {Array.from({ length: studentsCount }).map((_, sIdx) => (
-          <div key={sIdx} style={{ marginBottom: '10px' }}>
-            <span style={{ marginRight: '10px', fontWeight: 'bold' }}>
-              Student {sIdx + 1}:
-            </span>
+    <form onSubmit={handleSubmit} onKeyDown={handleKeyDown} className="flex w-200 flex-col gap-2">
+      <div className="flex items-center justify-end gap-2 px-4">
+        {Array.from({ length: gradesPerStudent }).map((_, gIdx) => (
+          <h2 key={gIdx} className="w-30 text-center text-xl font-medium">
+            Aspek Penilaian {gIdx + 1}
+          </h2>
+        ))}
+      </div>
+      {Array.from({ length: studentsCount }).map((_, sIdx) => (
+        <div
+          key={sIdx}
+          className="flex h-12 w-full items-center justify-between rounded-md border-2 border-black px-4"
+        >
+          <div className="flex items-center justify-start gap-4">
+            <div className="flex size-8 justify-center rounded-full bg-neutral-300 pt-2 text-neutral-400">
+              <FaUser className="size-5" />
+            </div>
+
+            <span className="text-bold">Mahasiswa {sIdx + 1}:</span>
+          </div>
+          <div className="flex justify-end gap-2">
             {Array.from({ length: gradesPerStudent }).map((_, gIdx) => (
-              // <input 
-              //   key={gIdx}
-              //   name={`grade-${sIdx}-${gIdx}`} 
-              //   type="number" 
-              //   min="1" max="10" 
-              //   defaultValue="1"
-              //   style={{ marginRight: '5px', width: '40px' }}
-              //   required
-              // />
-              <select 
+              <select
                 key={gIdx}
-                name={`grade-${sIdx}-${gIdx}`} 
+                name={`aspek_penilaian_${sIdx}_${gIdx}`}
                 defaultValue="1"
-                style={{ marginRight: '5px', padding: '2px' }}
+                className="w-30 rounded border border-neutral-400 p-0.5"
                 required
               >
-                {/* Generate options 1 through 10 */}
                 {Array.from({ length: 10 }, (_, i) => (
                   <option key={i + 1} value={i + 1}>
                     {i + 1}
@@ -56,9 +63,10 @@ export default function GradingPage() {
               </select>
             ))}
           </div>
-        ))}
-        <SubmitButton /> 
-      </form>
-    </main>
+        </div>
+      ))}
+
+      <SubmitButton />
+    </form>
   );
 }
