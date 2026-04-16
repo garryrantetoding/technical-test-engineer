@@ -1,5 +1,6 @@
 'use client';
 import { useFormStatus } from 'react-dom';
+import { LuLoaderCircle } from 'react-icons/lu';
 
 export function SubmitButton() {
   const { pending } = useFormStatus();
@@ -8,9 +9,16 @@ export function SubmitButton() {
     <button
       type="submit"
       disabled={pending} // Prevent double submission
-      style={{ marginTop: '20px', opacity: pending ? 0.5 : 1 }}
+      className={`flex h-10 w-40 items-center justify-center rounded-md border-2 border-black text-white ${pending ? 'cursor-not-allowed bg-neutral-500' : 'bg-blue-500 hover:bg-blue-700'}`}
     >
-      {pending ? 'Submitting Grades...' : 'Submit All Grades'}
+      {pending ? (
+        <div className="flex items-center justify-center gap-2">
+          <LuLoaderCircle className="size-4 animate-spin" />
+          Menyimpan
+        </div>
+      ) : (
+        'Simpan'
+      )}
     </button>
   );
 }

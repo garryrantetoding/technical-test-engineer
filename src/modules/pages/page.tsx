@@ -26,10 +26,14 @@ export default function GradingForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} onKeyDown={handleKeyDown} className="flex w-200 flex-col gap-2">
+    <form
+      onSubmit={handleSubmit}
+      onKeyDown={handleKeyDown}
+      className="flex w-130 flex-col gap-2 md:w-200"
+    >
       <div className="flex items-center justify-end gap-2 px-4">
         {Array.from({ length: gradesPerStudent }).map((_, gIdx) => (
-          <h2 key={gIdx} className="w-30 text-center text-xl font-medium">
+          <h2 key={gIdx} className="w-17 text-center text-base font-medium md:w-30 md:text-xl">
             Aspek Penilaian {gIdx + 1}
           </h2>
         ))}
@@ -52,7 +56,7 @@ export default function GradingForm() {
                 key={gIdx}
                 name={`aspek_penilaian_${sIdx}_${gIdx}`}
                 defaultValue="1"
-                className="w-30 rounded border border-neutral-400 p-0.5"
+                className="w-17 rounded border border-neutral-400 p-0.5 md:w-30"
                 required
               >
                 {Array.from({ length: 10 }, (_, i) => (
@@ -65,8 +69,9 @@ export default function GradingForm() {
           </div>
         </div>
       ))}
-
-      <SubmitButton />
+      <div className="flex w-full justify-center md:justify-end">
+        <SubmitButton />
+      </div>
     </form>
   );
 }
