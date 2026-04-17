@@ -31,7 +31,7 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 
 ## Output
 
-![alt text](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
+![alt text](https://github.com/garryrantetoding/technical-test-engineer/blob/main/technical%20test%20engineer%20fe.PNG?raw=true)
 
 
 
