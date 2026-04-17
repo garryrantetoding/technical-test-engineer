@@ -48,7 +48,7 @@ export default function GradingForm() {
               <FaUser className="size-5" />
             </div>
 
-            <span className="text-bold">Mahasiswa {sIdx + 1}:</span>
+            <span className="text-bold">Mahasiswa {sIdx + 1}</span>
           </div>
           <div className="flex justify-end gap-2">
             {Array.from({ length: gradesPerStudent }).map((_, gIdx) => (
